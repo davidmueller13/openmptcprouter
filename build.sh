@@ -952,24 +952,24 @@ if [ "$OMR_KERNEL" = "6.12" ]; then
 	echo "CONFIG_KERNEL_MODULE_ALLOW_BTF_MISMATCH=y" >> ".config"
 	echo 'CONFIG_EXTRA_OPTIMIZATION="-fno-caller-saves -fno-plt -Wno-stringop-truncation -Wno-stringop-overread -Wno-calloc-transposed-args"' >> ".config"
 	# Remove for now packages that doesn't compile
-	rm -rf package/kernel/mt76
-	rm -rf package/kernel/rtl8812au-ct
+	#rm -rf package/kernel/mt76
+	#rm -rf package/kernel/rtl8812au-ct
 	# Remove not needed patches
-	rm -f package/kernel/mac80211/patches/build/200-Revert-wifi-iwlwifi-Use-generic-thermal_zone_get_tri.patch
-	rm -f package/kernel/mac80211/patches/build/210-revert-split-op.patch
-	rm -f package/kernel/mac80211/patches/subsys/301-mac80211-sta-randomize-BA-session-dialog-token-alloc.patch
-	rm -f package/kernel/mac80211/patches/build/240-backport_genl_split_ops.patch
-	rm -f package/kernel/mac80211/patches/build/250-backport_iwlwifi_thermal.patch
-	rm -f package/kernel/rtl8812au-ct/patches/099-cut-linkid-linux-version-code-conditionals.patch
-	rm -f package/kernel/rtl8812au-ct/patches/100-api_update.patch
+	#rm -f package/kernel/mac80211/patches/build/200-Revert-wifi-iwlwifi-Use-generic-thermal_zone_get_tri.patch
+	#rm -f package/kernel/mac80211/patches/build/210-revert-split-op.patch
+	#rm -f package/kernel/mac80211/patches/subsys/301-mac80211-sta-randomize-BA-session-dialog-token-alloc.patch
+	#rm -f package/kernel/mac80211/patches/build/240-backport_genl_split_ops.patch
+	#rm -f package/kernel/mac80211/patches/build/250-backport_iwlwifi_thermal.patch
+	#rm -f package/kernel/rtl8812au-ct/patches/099-cut-linkid-linux-version-code-conditionals.patch
+	#rm -f package/kernel/rtl8812au-ct/patches/100-api_update.patch
 	#echo 'CONFIG_KERNEL_GIT_CLONE_URI="https://github.com/multipath-tcp/mptcp_net-next.git"' >> ".config"
 	#echo 'CONFIG_KERNEL_GIT_REF="92590173530711151d50d13b145a9621b5e8d239"' >> ".config"
-	rm -f target/linux/generic/pending-6.12/510-block-add-uImage.FIT-subimage-block-driver.patch
-	rm -f target/linux/generic/hack-6.12/735-net-phy-realtek-rtl8261n.patch
-	rm -f target/linux/generic/backport-6.12/753-v6.15-net-ethernet-mediatek-add-EEE-support.patch
-	rm -f target/linux/generic/pending-6.12/738-01-net-ethernet-mtk_eth_soc-reduce-rx-ring-size-for-older.patch
-	rm -f target/linux/generic/pending-6.12/454-nvmem-implement-block-NVMEM-provider.patch
-	rm -f toolchain/musl/patches/100-tools-Rework-adding-of-CFI-annotations.patch
+	#rm -f target/linux/generic/pending-6.12/510-block-add-uImage.FIT-subimage-block-driver.patch
+	#rm -f target/linux/generic/hack-6.12/735-net-phy-realtek-rtl8261n.patch
+	#rm -f target/linux/generic/backport-6.12/753-v6.15-net-ethernet-mediatek-add-EEE-support.patch
+	#rm -f target/linux/generic/pending-6.12/738-01-net-ethernet-mtk_eth_soc-reduce-rx-ring-size-for-older.patch
+	#rm -f target/linux/generic/pending-6.12/454-nvmem-implement-block-NVMEM-provider.patch
+	#rm -f toolchain/musl/patches/100-tools-Rework-adding-of-CFI-annotations.patch
 	echo 'CONFIG_PACKAGE_apk-openssl=y' >> ".config"
 	if [ ! -d target/linux/`sed -nE 's/CONFIG_TARGET_([a-z0-9]*)=y/\1/p' ".config" | tr -d "\n"`/patches-6.12 ]; then
 		echo "Sorry but kernel 6.12 is not supported on your arch yet"
