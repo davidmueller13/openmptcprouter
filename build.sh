@@ -110,10 +110,10 @@ if [ "$ONLY_PREPARE" != "yes" ]; then
 			_get_repo feeds/${OMR_KERNEL}/luci ${OMR_OPENWRT_GIT}/openwrt/luci "be769afc62310631509826e41863ec7a71e764a4"
 			_get_repo feeds/${OMR_KERNEL}/routing ${OMR_OPENWRT_GIT}/openwrt/routing "f2ee837d3714f86e9d636302e9f69612c71029cb"
 		elif [ "$OMR_KERNEL" = "6.12" ]; then
-			_get_repo "$OMR_TARGET/${OMR_KERNEL}/source" ${OMR_OPENWRT_GIT}/openwrt/openwrt "6af9476b8a3c75ce65f17cfa89da7d35360a4756"
-			_get_repo feeds/${OMR_KERNEL}/packages ${OMR_OPENWRT_GIT}/openwrt/packages "92c56952ba7f9ca224180d627498e5f3fdd37721"
-			_get_repo feeds/${OMR_KERNEL}/luci ${OMR_OPENWRT_GIT}/openwrt/luci "2604b5532f2f0026e308ed49fef1ab6db8735e0a"
-			_get_repo feeds/${OMR_KERNEL}/routing ${OMR_OPENWRT_GIT}/openwrt/routing "bd56cdc36a5fe506c2b79340f1b996ca712c32c6"
+			_get_repo "$OMR_TARGET/${OMR_KERNEL}/source" ${OMR_OPENWRT_GIT}/openwrt/openwrt "77b9393d2f3609956a54a6e7d38bda8ddba6046a"
+			_get_repo feeds/${OMR_KERNEL}/packages ${OMR_OPENWRT_GIT}/openwrt/packages "9a917dcc546d968245768be0fdbe63b68ad3105e"
+			_get_repo feeds/${OMR_KERNEL}/luci ${OMR_OPENWRT_GIT}/openwrt/luci "5780be0beba6b0ccde07fc333c8f2868467a11e6"
+			_get_repo feeds/${OMR_KERNEL}/routing ${OMR_OPENWRT_GIT}/openwrt/routing "d0f6265f6f32d44753c22474c11cc16a76a5d512"
 		fi
 	elif [ "$OMR_OPENWRT" = "coolsnowwolfmix" ]; then
 		_get_repo "$OMR_TARGET/${OMR_KERNEL}/source" ${OMR_OPENWRT_GIT}/coolsnowwolf/lede.git "master"
@@ -1000,11 +1000,11 @@ else
 	cd -
 fi
 
-cd feeds/${OMR_KERNEL}
-if ! patch -Rf -N -p1 -s --dry-run < ../../patches/luci-unbound-logread.patch; then
-	patch -N -p1 -s < ../../patches/luci-unbound-logread.patch
-fi
-cd -
+#cd feeds/${OMR_KERNEL}
+#if ! patch -Rf -N -p1 -s --dry-run < ../../patches/luci-unbound-logread.patch; then
+#	patch -N -p1 -s < ../../patches/luci-unbound-logread.patch
+#fi
+#cd -
 
 
 [ -d feeds/${OMR_KERNEL}/${OMR_DIST}/luci-app-statistics ] && rm -rf feeds/${OMR_KERNEL}/luci/applications/luci-app-statistics
