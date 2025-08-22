@@ -109,11 +109,11 @@ if [ "$ONLY_PREPARE" != "yes" ]; then
 			_get_repo feeds/${OMR_KERNEL}/packages ${OMR_OPENWRT_GIT}/openwrt/packages "234806df39e38734ce5a3dfe0d94f8811cb57440"
 			_get_repo feeds/${OMR_KERNEL}/luci ${OMR_OPENWRT_GIT}/openwrt/luci "be769afc62310631509826e41863ec7a71e764a4"
 			_get_repo feeds/${OMR_KERNEL}/routing ${OMR_OPENWRT_GIT}/openwrt/routing "f2ee837d3714f86e9d636302e9f69612c71029cb"
-		elif [ "$OMR_KERNEL" = "6.12" ]; then
-			_get_repo "$OMR_TARGET/${OMR_KERNEL}/source" ${OMR_OPENWRT_GIT}/openwrt/openwrt "77b9393d2f3609956a54a6e7d38bda8ddba6046a"
-			_get_repo feeds/${OMR_KERNEL}/packages ${OMR_OPENWRT_GIT}/openwrt/packages "9a917dcc546d968245768be0fdbe63b68ad3105e"
-			_get_repo feeds/${OMR_KERNEL}/luci ${OMR_OPENWRT_GIT}/openwrt/luci "5780be0beba6b0ccde07fc333c8f2868467a11e6"
-			_get_repo feeds/${OMR_KERNEL}/routing ${OMR_OPENWRT_GIT}/openwrt/routing "d0f6265f6f32d44753c22474c11cc16a76a5d512"
+		elif [ "$OMR_KERNEL" = "6.12" ] || [ "$OMR_KERNEL" = "6.17" ]; then
+			_get_repo "$OMR_TARGET/${OMR_KERNEL}/source" ${OMR_OPENWRT_GIT}/openwrt/openwrt "070d8eb4d57038f3986027cd6d4610bd27ec2d59"
+			_get_repo feeds/${OMR_KERNEL}/packages ${OMR_OPENWRT_GIT}/openwrt/packages "0a512e8f0eeb474d8b7f93a5eb73792ce7f4247a"
+			_get_repo feeds/${OMR_KERNEL}/luci ${OMR_OPENWRT_GIT}/openwrt/luci "09372c6ddc6379ad758f5c485fb779904176b961"
+			_get_repo feeds/${OMR_KERNEL}/routing ${OMR_OPENWRT_GIT}/openwrt/routing "d53907107d48331ef38978f7a259bc8eac3765a0"
 		fi
 	elif [ "$OMR_OPENWRT" = "coolsnowwolfmix" ]; then
 		_get_repo "$OMR_TARGET/${OMR_KERNEL}/source" ${OMR_OPENWRT_GIT}/coolsnowwolf/lede.git "master"
@@ -488,7 +488,7 @@ cd "$OMR_TARGET/${OMR_KERNEL}/source"
 #	echo "Done"
 #fi
 
-if [ "$OMR_KERNEL" != "6.6" ] && [ "$OMR_KERNEL" != "6.10" ] && [ "$OMR_KERNEL" != "6.11" ] && [ "$OMR_KERNEL" != "6.12" ]; then
+if [ "$OMR_KERNEL" != "6.6" ] && [ "$OMR_KERNEL" != "6.10" ] && [ "$OMR_KERNEL" != "6.11" ] && [ "$OMR_KERNEL" != "6.12" ] && [ "$OMR_KERNEL" != "6.17" ]; then
 	echo "Checking if No check patch is set or not"
 	if ! patch -Rf -N -p1 -s --dry-run < ../../../patches/nocheck.patch; then
 		echo "apply..."
@@ -927,6 +927,12 @@ if [ "$OMR_KERNEL" = "6.12" ]; then
 	echo "Set to kernel 6.12 for qualcommax"
 	find target/linux/qualcommax -type f -name Makefile -exec sed -i 's%KERNEL_PATCHVER:=6.6%KERNEL_PATCHVER:=6.12%g' {} \;
 	echo "Done"
+	echo "Set to kernel 6.12 for ipq40xx"
+	find target/linux/ipq40xx -type f -name Makefile -exec sed -i 's%KERNEL_PATCHVER:=6.6%KERNEL_PATCHVER:=6.12%g' {} \;
+	echo "Done"
+	echo "Set to kernel 6.12 for ipq806x"
+	find target/linux/ipq806x -type f -name Makefile -exec sed -i 's%KERNEL_PATCHVER:=6.6%KERNEL_PATCHVER:=6.12%g' {} \;
+	echo "Done"
 	echo "CONFIG_VERSION_CODE=6.12" >> ".config"
 	echo "# CONFIG_PACKAGE_kmod-gpio-button-hotplug is not set" >> ".config"
 	echo "# CONFIG_PACKAGE_kmod-meraki-mx100 is not set" >> ".config"
@@ -976,6 +982,76 @@ if [ "$OMR_KERNEL" = "6.12" ]; then
 		NOT_SUPPORTED="1"
 	fi
 fi
+if [ "$OMR_KERNEL" = "6.17" ]; then
+	echo "Set to kernel 6.17 for x86 arch"
+	find target/linux/x86 -type f -name Makefile -exec sed -i 's%KERNEL_PATCHVER:=6.6%KERNEL_PATCHVER:=6.17%g' {} \;
+	find target/linux/x86 -type f -name Makefile -exec sed -i 's%KERNEL_PATCHVER:=6.12%KERNEL_PATCHVER:=6.17%g' {} \;
+	echo "Done"
+	echo "Set to kernel 6.12 for mediatek"
+	find target/linux/mediatek -type f -name Makefile -exec sed -i 's%KERNEL_PATCHVER:=6.6%KERNEL_PATCHVER:=6.12%g' {} \;
+	echo "Done"
+	echo "Set to kernel 6.12 for bcm27xx"
+	find target/linux/bcm27xx -type f -name Makefile -exec sed -i 's%KERNEL_PATCHVER:=6.6%KERNEL_PATCHVER:=6.12%g' {} \;
+	echo "Done"
+	echo "Set to kernel 6.12 for qualcommax"
+	find target/linux/qualcommax -type f -name Makefile -exec sed -i 's%KERNEL_PATCHVER:=6.6%KERNEL_PATCHVER:=6.12%g' {} \;
+	echo "Done"
+	echo "Set to kernel 6.12 for ipq40xx"
+	find target/linux/ipq40xx -type f -name Makefile -exec sed -i 's%KERNEL_PATCHVER:=6.6%KERNEL_PATCHVER:=6.12%g' {} \;
+	echo "Done"
+	echo "Set to kernel 6.12 for ipq806x"
+	find target/linux/ipq806x -type f -name Makefile -exec sed -i 's%KERNEL_PATCHVER:=6.6%KERNEL_PATCHVER:=6.12%g' {} \;
+	echo "Done"
+	echo "CONFIG_VERSION_CODE=6.12" >> ".config"
+	echo "# CONFIG_PACKAGE_kmod-gpio-button-hotplug is not set" >> ".config"
+	echo "# CONFIG_PACKAGE_kmod-meraki-mx100 is not set" >> ".config"
+	echo "# CONFIG_PACKAGE_kmod-gpio-nct5104d is not set" >> ".config"
+	echo "# CONFIG_PACKAGE_kmod-r8168 is not set" >> ".config"
+	echo "# CONFIG_PACKAGE_kmod-r8125 is not set" >> ".config"
+	echo "# CONFIG_PACKAGE_kmod-r8125-rss is not set" >> ".config"
+	echo "# CONFIG_PACKAGE_kmod-r8126 is not set" >> ".config"
+	echo "# CONFIG_PACKAGE_kmod-r8126-rss is not set" >> ".config"
+	echo "# CONFIG_PACKAGE_kmod-button-hotplug is not set" >> ".config"
+	echo "# CONFIG_PACKAGE_kmod-cryptodev is not set" >> ".config"
+	echo "# CONFIG_PACKAGE_kmod-trelay is not set" >> ".config"
+	echo "# CONFIG_PACKAGE_464xlat is not set" >> ".config"
+	echo "# CONFIG_PACKAGE_kmod-nat46 is not set" >> ".config"
+	echo "# CONFIG_PACKAGE_kmod-ath10k-ct-smallbuffers is not set" >> ".config"
+	echo "CONFIG_BPF_TOOLCHAIN=y" >> ".config"
+	echo "CONFIG_BPF_TOOLCHAIN_HOST=y" >> ".config"
+	echo "CONFIG_KERNEL_BPF_EVENTS=y" >> ".config"
+	echo "CONFIG_KERNEL_DEBUG_INFO=y" >> ".config"
+	echo "CONFIG_KERNEL_DEBUG_INFO_BTF=y" >> ".config"
+	echo "CONFIG_KERNEL_DEBUG_INFO_BTF_MODULES=y" >> ".config"
+	echo "# CONFIG_KERNEL_DEBUG_INFO_REDUCED is not set" >> ".config"
+	echo "CONFIG_KERNEL_MODULE_ALLOW_BTF_MISMATCH=y" >> ".config"
+	echo 'CONFIG_EXTRA_OPTIMIZATION="-fno-caller-saves -fno-plt -Wno-stringop-truncation -Wno-stringop-overread -Wno-calloc-transposed-args"' >> ".config"
+	# Remove for now packages that doesn't compile
+	#rm -rf package/kernel/mt76
+	#rm -rf package/kernel/rtl8812au-ct
+	rm -rf package/kernel/r8101
+	# Remove not needed patches
+	#rm -f package/kernel/mac80211/patches/build/200-Revert-wifi-iwlwifi-Use-generic-thermal_zone_get_tri.patch
+	#rm -f package/kernel/mac80211/patches/build/210-revert-split-op.patch
+	#rm -f package/kernel/mac80211/patches/subsys/301-mac80211-sta-randomize-BA-session-dialog-token-alloc.patch
+	#rm -f package/kernel/mac80211/patches/build/240-backport_genl_split_ops.patch
+	#rm -f package/kernel/mac80211/patches/build/250-backport_iwlwifi_thermal.patch
+	#rm -f package/kernel/rtl8812au-ct/patches/099-cut-linkid-linux-version-code-conditionals.patch
+	#rm -f package/kernel/rtl8812au-ct/patches/100-api_update.patch
+	#echo 'CONFIG_KERNEL_GIT_CLONE_URI="https://github.com/multipath-tcp/mptcp_net-next.git"' >> ".config"
+	#echo 'CONFIG_KERNEL_GIT_REF="92590173530711151d50d13b145a9621b5e8d239"' >> ".config"
+	#rm -f target/linux/generic/pending-6.12/510-block-add-uImage.FIT-subimage-block-driver.patch
+	#rm -f target/linux/generic/hack-6.12/735-net-phy-realtek-rtl8261n.patch
+	#rm -f target/linux/generic/backport-6.12/753-v6.15-net-ethernet-mediatek-add-EEE-support.patch
+	#rm -f target/linux/generic/pending-6.12/738-01-net-ethernet-mtk_eth_soc-reduce-rx-ring-size-for-older.patch
+	#rm -f target/linux/generic/pending-6.12/454-nvmem-implement-block-NVMEM-provider.patch
+	#rm -f toolchain/musl/patches/100-tools-Rework-adding-of-CFI-annotations.patch
+	echo 'CONFIG_PACKAGE_apk-openssl=y' >> ".config"
+	if [ ! -d target/linux/`sed -nE 's/CONFIG_TARGET_([a-z0-9]*)=y/\1/p' ".config" | tr -d "\n"`/patches-6.17 ]; then
+		echo "Sorry but kernel 6.12 is not supported on your arch yet"
+		NOT_SUPPORTED="1"
+	fi
+fi
 
 #rm -rf feeds/packages/libs/libwebp
 cd "../../.."
@@ -983,7 +1059,7 @@ rm -rf feeds/${OMR_KERNEL}/luci/modules/luci-mod-network
 
 if [ -d feeds/${OMR_KERNEL}/${OMR_DIST}/luci-mod-status ]; then
 	rm -rf feeds/${OMR_KERNEL}/luci/modules/luci-mod-status
-elif [ "$OMR_KERNEL" = "6.6" ] || [ "$OMR_KERNEL" = "6.10" ] || [ "$OMR_KERNEL" = "6.11" ] || [ "$OMR_KERNEL" = "6.12" ]; then
+elif [ "$OMR_KERNEL" = "6.6" ] || [ "$OMR_KERNEL" = "6.10" ] || [ "$OMR_KERNEL" = "6.11" ] || [ "$OMR_KERNEL" = "6.12" ] || [ "$OMR_KERNEL" = "6.17" ]; then
 	cd feeds/${OMR_KERNEL}
 	#if ! patch -Rf -N -p1 -s --dry-run < ../../patches/luci-syslog-6.6.patch; then
 	#	patch -N -p1 -s < ../../patches/luci-syslog-6.6.patch
