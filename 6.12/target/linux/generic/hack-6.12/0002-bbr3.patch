@@ -852,7 +852,7 @@ index 760941e55153..a180fa648d5e 100644
 +	}
 +
 +	bytes = min_t(u32, bytes, gso_max_size - 1 - MAX_TCP_HEADER);
-+	segs = max_t(u32, bytes / mss_now,
++	segs = max_t(u32, div_u64(bytes / mss_now),
 +		     sock_net(sk)->ipv4.sysctl_tcp_min_tso_segs);
 +	return segs;
 +}
