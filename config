@@ -291,4 +291,3 @@ CONFIG_KERNEL_NF_CONNTRACK_DESTROY_HOOK=y
 # CONFIG_PACKAGE_wpad-basic-wolfssl is not set
 CONFIG_PACKAGE_kmod-nft-queue=m
 # CONFIG_PACKAGE_apk-mbedtls is not set
-
